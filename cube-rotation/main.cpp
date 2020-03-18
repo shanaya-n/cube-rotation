@@ -34,7 +34,7 @@
 using namespace std;
 
 
-float theta = 0.0;
+float theta = 180.0;
 
 // Converts degrees to radians for rotation
 float deg2rad(float d) {
@@ -243,10 +243,9 @@ void display_func() {
         0.0,    1.0,    1.0,
         0.0,    1.0,    1.0,
     };
-        
-    points = to_cartesian_coord(mat_mult(rotation_matrix_y(45), to_homogenous_coord(points)));
-    points = to_cartesian_coord(mat_mult(rotation_matrix_x(90), to_homogenous_coord(points)));
-    points = to_cartesian_coord(mat_mult(rotation_matrix_z(90), to_homogenous_coord(points)));
+            
+        points = to_cartesian_coord(mat_mult(rotation_matrix_y(theta), to_homogenous_coord(points)));
+        points = to_cartesian_coord(mat_mult(rotation_matrix_x(theta), to_homogenous_coord(points)));
     
     GLfloat* vertices = vector2array(points);
     
