@@ -34,7 +34,7 @@
 using namespace std;
 
 
-float theta = 180.0;
+float theta = 0.0;
 
 // Converts degrees to radians for rotation
 float deg2rad(float d) {
@@ -82,10 +82,10 @@ vector<GLfloat> rotation_matrix_x (float theta) {
     vector<GLfloat> rotate_mat_x;
     
     rotate_mat_x = {
-        1.0,    0.0,           0.0,            0.0,
+        1.0,    0.0,                    0.0,                     0.0,
         0.0,    cos(deg2rad(theta)),    -sin(deg2rad(theta)),    0.0,
         0.0,    sin(deg2rad(theta)),    cos(deg2rad(theta)),     0.0,
-        0.0,    0.0,           0.0,            1.0
+        0.0,    0.0,                    0.0,                     1.0
     };
     
     return rotate_mat_x;
@@ -97,9 +97,9 @@ vector<GLfloat> rotation_matrix_y (float theta) {
     
     rotate_mat_y = {
         cos(deg2rad(theta)),    0.0,    sin(deg2rad(theta)),     0.0,
-        0.0,           1.0,    0.0,            0.0,
+        0.0,                    1.0,    0.0,                     0.0,
         -sin(deg2rad(theta)),   0.0,    cos(deg2rad(theta)),     0.0,
-        0.0,           0.0,    0.0,            1.0
+        0.0,                    0.0,    0.0,                     1.0
     };
     
     return rotate_mat_y;
@@ -112,8 +112,8 @@ vector<GLfloat> rotation_matrix_z (float theta) {
     rotate_mat_z = {
         cos(deg2rad(theta)),    -sin(deg2rad(theta)),    0.0,     0.0,
         sin(deg2rad(theta)),    cos(deg2rad(theta)),     0.0,     0.0,
-        0.0,           0.0,            1.0,     0.0,
-        0.0,           0.0,            0.0,     1.0
+        0.0,                    0.0,                     1.0,     0.0,
+        0.0,                    0.0,                     0.0,     1.0
     };
     
     return rotate_mat_z;
@@ -210,7 +210,7 @@ void display_func() {
         -1.0,   -1.0,   -1.0,
         +1.0,   -1.0,   -1.0,
     };
-
+    
     GLfloat colors[] = {
         // Front plane
         1.0,    0.0,    0.0,
@@ -243,9 +243,10 @@ void display_func() {
         0.0,    1.0,    1.0,
         0.0,    1.0,    1.0,
     };
-            
-        points = to_cartesian_coord(mat_mult(rotation_matrix_y(theta), to_homogenous_coord(points)));
-        points = to_cartesian_coord(mat_mult(rotation_matrix_x(theta), to_homogenous_coord(points)));
+    
+    points = to_cartesian_coord(mat_mult(rotation_matrix_x(theta), to_homogenous_coord(points)));
+    points = to_cartesian_coord(mat_mult(rotation_matrix_y(theta), to_homogenous_coord(points)));
+    points = to_cartesian_coord(mat_mult(rotation_matrix_z(theta), to_homogenous_coord(points)));
     
     GLfloat* vertices = vector2array(points);
     
@@ -268,7 +269,7 @@ void display_func() {
 }
 
 void idle_func() {
-    theta = theta+0.3;
+    theta = theta+20.0;
     display_func();
 }
 

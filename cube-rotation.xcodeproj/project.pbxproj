@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4421294F2405A52F00BB6F5B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4421294E2405A52F00BB6F5B /* main.cpp */; };
+		4421294F2405A52F00BB6F5B /* assignment2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4421294E2405A52F00BB6F5B /* assignment2.cpp */; };
 		442129572405A5C500BB6F5B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442129562405A5C500BB6F5B /* OpenGL.framework */; };
 		442129592405A5D400BB6F5B /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 442129582405A5D400BB6F5B /* GLUT.framework */; };
 /* End PBXBuildFile section */
@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		4421294B2405A52F00BB6F5B /* cube-rotation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cube-rotation"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4421294E2405A52F00BB6F5B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4421294E2405A52F00BB6F5B /* assignment2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = assignment2.cpp; sourceTree = "<group>"; };
 		442129562405A5C500BB6F5B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		442129582405A5D400BB6F5B /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -64,7 +64,7 @@
 		4421294D2405A52F00BB6F5B /* cube-rotation */ = {
 			isa = PBXGroup;
 			children = (
-				4421294E2405A52F00BB6F5B /* main.cpp */,
+				4421294E2405A52F00BB6F5B /* assignment2.cpp */,
 			);
 			path = "cube-rotation";
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4421294F2405A52F00BB6F5B /* main.cpp in Sources */,
+				4421294F2405A52F00BB6F5B /* assignment2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
