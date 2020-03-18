@@ -52,7 +52,7 @@ vector<GLfloat> to_homogenous_coord(vector<GLfloat> cartesian_coords) {
     vector<GLfloat> result;
     
     // TODO: Append the 1 in the 4th dimension to generate homoegenous coordinates
-    for(int i = 0; i < cartesian_coords.size()/3; i+=3) {
+    for(int i = 0; i < cartesian_coords.size(); i+=3) {
         result.push_back(cartesian_coords[i]);
         result.push_back(cartesian_coords[i+1]);
         result.push_back(cartesian_coords[i+2]);
@@ -67,7 +67,7 @@ vector<GLfloat> to_cartesian_coord(vector<GLfloat> homogenous_coords) {
     vector<GLfloat> result;
     
     // TODO: Remove the 1 in the 4th dimension to generate Cartesian coordinates
-    for(int i = 0; i < homogenous_coords.size()/4; i+=4) {
+    for(int i = 0; i < homogenous_coords.size(); i+=4) {
         result.push_back(homogenous_coords[i]);
         result.push_back(homogenous_coords[i+1]);
         result.push_back(homogenous_coords[i+2]);
@@ -155,6 +155,17 @@ vector<GLfloat> mat_mult(vector<GLfloat> A, vector<GLfloat> B) {
 //        printf("%f, \n", x);
     return result;
 }
+
+vector<GLfloat> identity_matrix() {
+    
+    return {1.0, 0.0, 0.0, 0.0,
+            0.0, 1.0, 0.0, 0.0,
+            0.0, 0.0, 1.0, 0.0,
+            0.0, 0.0, 0.0, 1.0
+    
+    };
+}
+
 
 void setup() {
     // Enable the vertex array functionality
@@ -255,7 +266,12 @@ void display_func() {
     };
     
     // TODO: Apply rotation(s) to the set of points
-    points = to_cartesian_coord(mat_mult(rotation_matrix_x(90), to_homogenous_coord(points)));
+    points = to_cartesian_coord(mat_mult(identity_matrix(), to_homogenous_coord(points)));
+    
+//    points = to_cartesian_coord(mat_mult(rotation_matrix_x(90), to_homogenous_coord(points)));
+//    points = to_homogenous_coord(points);
+//    points = mat_mult(rotation_matrix_x(90), points);
+//    points = to_cartesian_coord(points);
     
     GLfloat* vertices = vector2array(points);
     
