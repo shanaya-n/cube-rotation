@@ -1,15 +1,18 @@
 /***
  Assignment-2: Rotating a Cube in 3-Dimensional Space
  
- Name: Wong, Alex (Please write your name in Last Name, First Name format)
+ Name: Nagendran, Shanaya
  
- Collaborators: Doe, John; Doe, Jane
- ** Note: although the assignment should be completed individually
- you may speak with classmates on high level algorithmic concepts. Please
- list their names in this section
+ Collaborators: Wong, Alex
  
- Project Summary: A short paragraph (3-4 sentences) describing the work you
- did for the project.
+ Project Summary:
+ To rotate the provided cube, I had to rotation matrices for
+ rotation over x, y, and z. I then had to perform matrix
+ multiplication on the rotation matrix and the points that make
+ up the cube. To do so, I had to iterate through each point in
+ the cube and multiply the rotation matrix for each point to
+ generate the rotated point. Along the way, I used the identity
+ matrix in place of the rotation matrix to ensure proper functionality.
  ***/
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
@@ -51,7 +54,6 @@ GLfloat* vector2array(vector<GLfloat> vec) {
 vector<GLfloat> to_homogenous_coord(vector<GLfloat> cartesian_coords) {
     vector<GLfloat> result;
     
-    // TODO: Append the 1 in the 4th dimension to generate homoegenous coordinates
     for(int i = 0; i < cartesian_coords.size(); i+=3) {
         result.push_back(cartesian_coords[i]);
         result.push_back(cartesian_coords[i+1]);
@@ -66,7 +68,6 @@ vector<GLfloat> to_homogenous_coord(vector<GLfloat> cartesian_coords) {
 vector<GLfloat> to_cartesian_coord(vector<GLfloat> homogenous_coords) {
     vector<GLfloat> result;
     
-    // TODO: Remove the 1 in the 4th dimension to generate Cartesian coordinates
     for(int i = 0; i < homogenous_coords.size(); i+=4) {
         result.push_back(homogenous_coords[i]);
         result.push_back(homogenous_coords[i+1]);
@@ -80,7 +81,6 @@ vector<GLfloat> to_cartesian_coord(vector<GLfloat> homogenous_coords) {
 vector<GLfloat> rotation_matrix_x (float theta) {
     vector<GLfloat> rotate_mat_x;
     
-    // TODO: Define the rotation matrix about the x-axis
     rotate_mat_x = {
         1.0,    0.0,           0.0,            0.0,
         0.0,    cos(deg2rad(theta)),    -sin(deg2rad(theta)),    0.0,
@@ -95,7 +95,6 @@ vector<GLfloat> rotation_matrix_x (float theta) {
 vector<GLfloat> rotation_matrix_y (float theta) {
     vector<GLfloat> rotate_mat_y;
     
-    // TODO: Define the rotation matrix about the y-axis
     rotate_mat_y = {
         cos(deg2rad(theta)),    0.0,    sin(deg2rad(theta)),     0.0,
         0.0,           1.0,    0.0,            0.0,
@@ -110,7 +109,6 @@ vector<GLfloat> rotation_matrix_y (float theta) {
 vector<GLfloat> rotation_matrix_z (float theta) {
     vector<GLfloat> rotate_mat_z;
     
-    // TODO: Define the rotation matrix about the z-axis
     rotate_mat_z = {
         cos(deg2rad(theta)),    -sin(deg2rad(theta)),    0.0,     0.0,
         sin(deg2rad(theta)),    cos(deg2rad(theta)),     0.0,     0.0,
@@ -125,45 +123,26 @@ vector<GLfloat> rotation_matrix_z (float theta) {
 vector<GLfloat> mat_mult(vector<GLfloat> A, vector<GLfloat> B) {
     vector<GLfloat> result;
     
-    // TODO: Compute matrix multiplication of A B
-    // size of result = (num rows in A) x (num cols in B)
     // A = rotation matrix
     // B = points
     // i = current row in points
     // j = current row in rotation matrix
     // k = current column
-
-    //    int rowsB = 24;
-    //    int colsB = 4;
     
     int rowsA = 4;
     int colsA = 4;
-    
     int num_points = int(B.size()/4);
     
-    for (int i = 0; i < rowsA; i++) {
-        for (int j = 0; j < num_points; j++) {
+    for (int i = 0; i < num_points; i++) {
+        for (int j = 0; j < rowsA; j++) {
             GLfloat curr_row_sum = 0;
             for (int k = 0; k < colsA; k++) {
-                curr_row_sum += A[4*i+k] * B[4*j+k];
+                curr_row_sum += A[4*j+k] * B[4*i+k];
             }
             result.push_back(curr_row_sum);
         }
     }
-    
-//    for (GLfloat x : result)
-//        printf("%f, \n", x);
     return result;
-}
-
-vector<GLfloat> identity_matrix() {
-    
-    return {1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
-    
-    };
 }
 
 
@@ -264,14 +243,10 @@ void display_func() {
         0.0,    1.0,    1.0,
         0.0,    1.0,    1.0,
     };
-    
-    // TODO: Apply rotation(s) to the set of points
-    points = to_cartesian_coord(mat_mult(identity_matrix(), to_homogenous_coord(points)));
-    
-//    points = to_cartesian_coord(mat_mult(rotation_matrix_x(90), to_homogenous_coord(points)));
-//    points = to_homogenous_coord(points);
-//    points = mat_mult(rotation_matrix_x(90), points);
-//    points = to_cartesian_coord(points);
+        
+    points = to_cartesian_coord(mat_mult(rotation_matrix_y(45), to_homogenous_coord(points)));
+    points = to_cartesian_coord(mat_mult(rotation_matrix_x(90), to_homogenous_coord(points)));
+    points = to_cartesian_coord(mat_mult(rotation_matrix_z(90), to_homogenous_coord(points)));
     
     GLfloat* vertices = vector2array(points);
     
